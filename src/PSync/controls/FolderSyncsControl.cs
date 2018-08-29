@@ -13,22 +13,32 @@ namespace PSync.controls
 {
     public partial class FolderSyncsControl : UserControl
     {
+        /// <summary>
+        /// This is out single data store object where everything is saved.
+        /// </summary>
         private DataStore db;
+
         public FolderSyncsControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initialise the control.
+        /// Do not do this in the onload event as it will break the Visual Studio Designer
+        /// </summary>
         public void Init()
         {
             db = DataStore.Current;
             RefreshControl();
         }
 
-        private void FolderSyncsControl_Load(object sender, EventArgs e)
-        {
-        }
-
+        /// <summary>
+        /// Provides the custom drawing of the listbox.
+        /// Requires the listbox to have the DrawMode property set to OwnerDrawFixed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstFolderSyncs_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index < 0) return;
@@ -52,6 +62,9 @@ namespace PSync.controls
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// Performs an update on the control to refresh all data
+        /// </summary>
         private void RefreshControl()
         {
             lstFolderSyncs.Items.Clear();
@@ -59,8 +72,35 @@ namespace PSync.controls
             {
                 lstFolderSyncs.Items.Add(f);
             }
+            RefreshButtons();
+        }
+        
+        /// <summary>
+        /// Makes sure the buttons are enabled depending on the selected items in the listbox
+        /// </summary>
+        private void RefreshButtons()
+        {
+            butAdd.Enabled = true;
+            butEdit.Enabled = lstFolderSyncs.SelectedIndex >= 0;
+            butDelete.Enabled = lstFolderSyncs.SelectedIndex >= 0;
+            butGo.Enabled = lstFolderSyncs.SelectedIndex >= 0;
         }
 
+        /// <summary>
+        /// Make sure that the buttons are refreshed when something in the listbox has been clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lstFolderSyncs_Click(object sender, EventArgs e)
+        {
+            RefreshButtons();
+        }
+
+        /// <summary>
+        /// Add a new FolderSync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butAdd_Click(object sender, EventArgs e)
         {
             FormFolderSyncDetails f = new FormFolderSyncDetails(new FolderSync());
@@ -71,6 +111,11 @@ namespace PSync.controls
             }
         }
 
+        /// <summary>
+        /// Edit the selected FolderSync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butEdit_Click(object sender, EventArgs e)
         {
             if (lstFolderSyncs.SelectedItem != null)
@@ -85,12 +130,17 @@ namespace PSync.controls
             }
         }
 
+        /// <summary>
+        /// Delete the selected FolderSync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butDelete_Click(object sender, EventArgs e)
         {
             if (lstFolderSyncs.SelectedItem != null)
             {
                 FolderSync folderSync = (FolderSync)lstFolderSyncs.SelectedItem;
-                if (MessageBox.Show("Do you really want to remove this folder sync?","Confirmation required", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Do you really want to remove this folder sync?", "Confirmation required", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     db.DeleteFolderSync(folderSync);
                     RefreshControl();

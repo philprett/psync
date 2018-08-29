@@ -10,12 +10,24 @@ using System.Threading.Tasks;
 
 namespace PSync.classes
 {
+    /// <summary>
+    /// Provides the data store for all locally stored settings, etc.
+    /// </summary>
     class DataStore
     {
+        /// <summary>
+        /// The only single instance of this class
+        /// </summary>
         private static DataStore singleton;
 
+        /// <summary>
+        /// The connection to the SQLite database
+        /// </summary>
         private SQLiteConnection db;
 
+        /// <summary>
+        /// Constructor which setups up the database connection
+        /// </summary>
         private DataStore()
         {
             string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.SettingsDatabaseFoldername);
@@ -34,6 +46,9 @@ namespace PSync.classes
             CheckDBVersion();
         }
 
+        /// <summary>
+        /// Check the version of the SQLite database. If not up to date then make it so.
+        /// </summary>
         private void CheckDBVersion()
         {
             int dbVersion;
@@ -67,6 +82,9 @@ namespace PSync.classes
             db.ExecuteNonQuery("UPDATE dbversion SET version = @dbversion", new[] { new SQLiteParameter("@dbversion", dbVersion) });
         }
 
+        /// <summary>
+        /// Return the only single instance of this class.
+        /// </summary>
         public static DataStore Current
         {
             get
@@ -86,6 +104,10 @@ namespace PSync.classes
             }
         }
 
+        /// <summary>
+        /// Get a list of all FolderSync objects in the database
+        /// </summary>
+        /// <returns></returns>
         public List<FolderSync> GetFolderSyncs()
         {
             List<FolderSync> ret = new List<FolderSync>();
@@ -97,6 +119,10 @@ namespace PSync.classes
             return ret;
         }
 
+        /// <summary>
+        /// Save a FolderSync to the database. If the object is found in the database, an UPDATE is done, otherwise an INSERT
+        /// </summary>
+        /// <param name="folderSync"></param>
         public void SaveFolderSync(FolderSync folderSync)
         {
             int found = (int)(long)db.ExecuteScalar("SELECT count(*) FROM foldersyncs WHERE id = @id", new[] { new SQLiteParameter("@id", folderSync.ID.ToString()) });
@@ -128,6 +154,10 @@ namespace PSync.classes
             }
         }
 
+        /// <summary>
+        /// Delete a FolderSync from the database.
+        /// </summary>
+        /// <param name="folderSync"></param>
         public void DeleteFolderSync(FolderSync folderSync)
         {
             db.ExecuteNonQuery(

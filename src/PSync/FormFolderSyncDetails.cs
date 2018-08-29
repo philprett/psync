@@ -13,11 +13,15 @@ namespace PSync
 {
     public partial class FormFolderSyncDetails : Form
     {
+        /// <summary>
+        /// The FolderSync to edit. 
+        /// </summary>
         public FolderSync FolderSync { get; set; }
-        public FormFolderSyncDetails(FolderSync folderSync)
+
+        public FormFolderSyncDetails(FolderSync folderSync = null)
         {
             InitializeComponent();
-            FolderSync = folderSync;
+            FolderSync = folderSync != null ? folderSync : new FolderSync();
         }
 
         private void FormFolderSyncDetails_Load(object sender, EventArgs e)

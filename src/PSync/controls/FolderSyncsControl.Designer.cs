@@ -56,6 +56,7 @@
             this.lstFolderSyncs.Name = "lstFolderSyncs";
             this.lstFolderSyncs.Size = new System.Drawing.Size(138, 160);
             this.lstFolderSyncs.TabIndex = 6;
+            this.lstFolderSyncs.Click += new System.EventHandler(this.lstFolderSyncs_Click);
             this.lstFolderSyncs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstFolderSyncs_DrawItem);
             // 
             // butGo
@@ -115,7 +116,6 @@
             this.MinimumSize = new System.Drawing.Size(155, 229);
             this.Name = "FolderSyncsControl";
             this.Size = new System.Drawing.Size(155, 229);
-            this.Load += new System.EventHandler(this.FolderSyncsControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

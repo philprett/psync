@@ -8,8 +8,18 @@ using System.Threading.Tasks;
 
 namespace PSync.extensions
 {
+    /// <summary>
+    /// Provide usefull extensions to the SQLiteConnection class
+    /// </summary>
     static class SQLiteConnectionExtensions
     {
+        /// <summary>
+        /// Execute a select query on the database and return the results in a DataTable
+        /// </summary>
+        /// <param name="con"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static DataTable ExecuteQuery(this SQLiteConnection con, string sql, SQLiteParameter[] parameters = null)
         {
             var dt = new DataTable();
@@ -34,6 +44,13 @@ namespace PSync.extensions
             }
         }
 
+        /// <summary>
+        /// Execute a query on the database and return the amount of rows affected
+        /// </summary>
+        /// <param name="con"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static int ExecuteNonQuery(this SQLiteConnection con, string sql, SQLiteParameter[] parameters = null)
         {
             var com = con.CreateCommand();
@@ -56,6 +73,13 @@ namespace PSync.extensions
             }
         }
 
+        /// <summary>
+        /// Execute a select query on the database and return the first column in the first row of the results.
+        /// </summary>
+        /// <param name="con"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static object ExecuteScalar(this SQLiteConnection con, string sql, SQLiteParameter[] parameters = null)
         {
             var com = con.CreateCommand();
@@ -78,6 +102,13 @@ namespace PSync.extensions
             }
         }
 
+        /// <summary>
+        /// Get a random int value making sure it does not already exist in a particular field in a particular table
+        /// </summary>
+        /// <param name="con"></param>
+        /// <param name="table"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static int GetUniqueInt(this SQLiteConnection con, string table, string field)
         {
             Random rand = new Random();
