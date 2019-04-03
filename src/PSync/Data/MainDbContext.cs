@@ -104,10 +104,27 @@ namespace PSync.Data
                 Settings.Add(dbVersion);
                 SaveChanges();
             }
+
+            ////////////////////////////////////////////////////////////////////////////
+            // Version 2
+            ////////////////////////////////////////////////////////////////////////////
+            if (dbVersion.Value.GetInt() < 2)
+            {
+                Database.ExecuteSqlCommand(
+                    "CREATE TABLE IF NOT EXISTS SyncedFile " +
+                    "(" +
+                    "ID INTEGER NOT NULL PRIMARY KEY, " +
+                    "Path TEXT NOT NULL," +
+                    "LastModified DATETIME NOT NULL" +
+                    ")");
+                dbVersion.Value = "2";
+                SaveChanges();
+            }
         }
 
         public DbSet<FolderSync> FolderSyncs { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<SyncedFile> SyncedFiles { get; set; }
 
     }
 }

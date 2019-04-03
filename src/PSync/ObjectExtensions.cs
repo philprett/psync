@@ -14,5 +14,10 @@ namespace PSync
             longValue = (long)random.Next() << 32;
             longValue = longValue | (long)random.Next();
         }
+
+        public static int GetInt(this string strValue)
+        {
+            return int.Parse(strValue);
+        }
     }
 }

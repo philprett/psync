@@ -23,7 +23,13 @@ namespace PSync.controls
 
         private void FolderSyncControl_Load(object sender, EventArgs e)
         {
-            label1.Text = folderSync.Name;
+            txtFolder1.Text = folderSync.Folder1;
+            txtFolder2.Text = folderSync.Folder2;
+        }
+
+        private void butAnalyse_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
