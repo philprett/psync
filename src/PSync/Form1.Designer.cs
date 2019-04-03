@@ -57,7 +57,7 @@
             this.folderSyncsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.folderSyncsControl.Location = new System.Drawing.Point(3, 2);
+            this.folderSyncsControl.Location = new System.Drawing.Point(3, 5);
             this.folderSyncsControl.MinimumSize = new System.Drawing.Size(155, 229);
             this.folderSyncsControl.Name = "folderSyncsControl";
             this.folderSyncsControl.Size = new System.Drawing.Size(269, 485);

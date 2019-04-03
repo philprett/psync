@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PSync.classes;
+using PSync.Data;
 
 namespace PSync.controls
 {
     public partial class FolderSyncsControl : UserControl
     {
-        /// <summary>
-        /// This is out single data store object where everything is saved.
-        /// </summary>
-        private DataStore db;
+        public class FolderSyncSelectedEventArgs { public FolderSync FolderSync { get; set; } public FolderSyncSelectedEventArgs() { FolderSync = null; } }
+        public delegate void FolderSyncSelectedHandler(object sender, FolderSyncSelectedEventArgs e);
+
+        public FolderSyncSelectedHandler FolderSyncSelected;
 
         public FolderSyncsControl()
         {
@@ -29,7 +29,6 @@ namespace PSync.controls
         /// </summary>
         public void Init()
         {
-            db = DataStore.Current;
             RefreshControl();
         }
 
@@ -68,13 +67,13 @@ namespace PSync.controls
         private void RefreshControl()
         {
             lstFolderSyncs.Items.Clear();
-            foreach (FolderSync f in db.GetFolderSyncs().OrderBy(f => f.Name))
+            foreach (FolderSync f in MainDbContext.DB.FolderSyncs.OrderBy(f => f.Name))
             {
                 lstFolderSyncs.Items.Add(f);
             }
             RefreshButtons();
         }
-        
+
         /// <summary>
         /// Makes sure the buttons are enabled depending on the selected items in the listbox
         /// </summary>
@@ -106,7 +105,8 @@ namespace PSync.controls
             FormFolderSyncDetails f = new FormFolderSyncDetails(new FolderSync());
             if (f.ShowDialog() == DialogResult.OK)
             {
-                db.SaveFolderSync(f.FolderSync);
+                MainDbContext.DB.FolderSyncs.Add(f.FolderSync);
+                MainDbContext.DB.SaveChanges();
                 RefreshControl();
             }
         }
@@ -124,7 +124,7 @@ namespace PSync.controls
                 FormFolderSyncDetails f = new FormFolderSyncDetails(folderSync);
                 if (f.ShowDialog() == DialogResult.OK)
                 {
-                    db.SaveFolderSync(f.FolderSync);
+                    MainDbContext.DB.SaveChanges();
                     RefreshControl();
                 }
             }
@@ -142,7 +142,8 @@ namespace PSync.controls
                 FolderSync folderSync = (FolderSync)lstFolderSyncs.SelectedItem;
                 if (MessageBox.Show("Do you really want to remove this folder sync?", "Confirmation required", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    db.DeleteFolderSync(folderSync);
+                    MainDbContext.DB.FolderSyncs.Remove(folderSync);
+                    MainDbContext.DB.SaveChanges();
                     RefreshControl();
                 }
             }
@@ -150,8 +151,31 @@ namespace PSync.controls
 
         private void butGo_Click(object sender, EventArgs e)
         {
+            if (lstFolderSyncs.SelectedItem != null)
+            {
+                FolderSync folderSync = (FolderSync)lstFolderSyncs.SelectedItem;
+                if (FolderSyncSelected != null)
+                {
+                    FolderSyncSelected(this, new FolderSyncSelectedEventArgs() { FolderSync = folderSync });
+                }
+            }
+        }
+
+        private void FolderSyncsControl_Load(object sender, EventArgs e)
+        {
 
         }
 
+        private void lstFolderSyncs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstFolderSyncs.SelectedItem != null)
+            {
+                FolderSync folderSync = (FolderSync)lstFolderSyncs.SelectedItem;
+                if (FolderSyncSelected != null)
+                {
+                    FolderSyncSelected(this, new FolderSyncSelectedEventArgs() { FolderSync = folderSync });
+                }
+            }
+        }
     }
 }

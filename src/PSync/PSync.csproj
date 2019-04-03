@@ -66,16 +66,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="classes\DataStore.cs" />
-    <Compile Include="classes\FolderSync.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="controls\FolderSyncControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\FolderSyncControl.Designer.cs">
+      <DependentUpon>FolderSyncControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\FolderSyncsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="controls\FolderSyncsControl.Designer.cs">
       <DependentUpon>FolderSyncsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="extensions\SQLiteConnection.cs" />
+    <Compile Include="Data\FolderSync.cs" />
+    <Compile Include="Data\MainDbContext.cs" />
+    <Compile Include="Data\Setting.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,8 +94,12 @@
     <Compile Include="FormFolderSyncDetails.Designer.cs">
       <DependentUpon>FormFolderSyncDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="controls\FolderSyncControl.resx">
+      <DependentUpon>FolderSyncControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="controls\FolderSyncsControl.resx">
       <DependentUpon>FolderSyncsControl.cs</DependentUpon>
     </EmbeddedResource>

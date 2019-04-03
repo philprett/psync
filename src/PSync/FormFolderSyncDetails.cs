@@ -1,4 +1,4 @@
-﻿using PSync.classes;
+﻿using PSync.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PSync
 {
-    public partial class FormFolderSyncDetails : Form
+    internal partial class FormFolderSyncDetails : Form
     {
         /// <summary>
         /// The FolderSync to edit. 
@@ -41,11 +41,12 @@ namespace PSync
             FolderSync.Name = txtName.Text;
             FolderSync.Folder1 = txtFolder1.Text;
             FolderSync.Folder2 = txtFolder2.Text;
-            FolderSync.Excludes = new List<string>();
+            List<string> excludesList = new List<string>();
             foreach (string exc in lstExcludes.Items)
             {
-                FolderSync.Excludes.Add(exc);
+                excludesList.Add(exc);
             }
+            FolderSync.ExcludesList = excludesList;
             DialogResult = DialogResult.OK;
         }
 
