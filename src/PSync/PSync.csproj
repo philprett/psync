@@ -67,10 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\Sync.cs" />
-    <Compile Include="Controllers\SyncActions.cs" />
-    <Compile Include="Controllers\SyncItem.cs" />
-    <Compile Include="Controllers\SyncItemType.cs" />
+    <Compile Include="Controllers\Sync\Sync.cs" />
+    <Compile Include="Controllers\Sync\SyncActions.cs" />
+    <Compile Include="Controllers\Sync\SyncItemStatus.cs" />
+    <Compile Include="Controllers\Sync\SyncItem.cs" />
+    <Compile Include="Controllers\Sync\SyncItemType.cs" />
     <Compile Include="controls\FolderSyncControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

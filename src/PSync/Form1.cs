@@ -31,13 +31,8 @@ namespace PSync
                 splitContainer1.Panel2.Controls.Remove(c);
             }
             FolderSyncControl co = new controls.FolderSyncControl(e.FolderSync);
-            splitContainer1.Panel2.Controls.Add(co);
-            //co.Left = 5;
-            //co.Top = 5;
-            //co.Width = splitContainer1.Panel2.Width - 10;
-            //co.Height = splitContainer1.Panel2.Height - 10;
-            //co.Anchor = AnchorStyles.Left & AnchorStyles.Right & AnchorStyles.Top & AnchorStyles.Bottom;
             co.Dock = DockStyle.Fill;
+            splitContainer1.Panel2.Controls.Add(co);
         }
 
     }

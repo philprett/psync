@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtFolder1 = new System.Windows.Forms.TextBox();
@@ -98,9 +102,13 @@
             this.butSync.TabIndex = 5;
             this.butSync.Text = "Sync";
             this.butSync.UseVisualStyleBackColor = true;
+            this.butSync.Click += new System.EventHandler(this.butSync_Click);
             // 
             // Grid
             // 
+            this.Grid.AllowUserToAddRows = false;
+            this.Grid.AllowUserToDeleteRows = false;
+            this.Grid.AllowUserToResizeRows = false;
             this.Grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -121,6 +129,8 @@
             // 
             // PathColumn
             // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.PathColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.PathColumn.FillWeight = 31.91489F;
             this.PathColumn.HeaderText = "Path";
             this.PathColumn.Name = "PathColumn";
@@ -129,27 +139,33 @@
             // Folder1Modified
             // 
             this.Folder1Modified.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Folder1Modified.DefaultCellStyle = dataGridViewCellStyle10;
             this.Folder1Modified.HeaderText = "Folder 1";
             this.Folder1Modified.Name = "Folder1Modified";
             this.Folder1Modified.ReadOnly = true;
-            this.Folder1Modified.Width = 150;
+            this.Folder1Modified.Width = 110;
             // 
             // ActionColumn
             // 
             this.ActionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ActionColumn.HeaderText = "Action";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ActionColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            this.ActionColumn.HeaderText = "";
             this.ActionColumn.Name = "ActionColumn";
             this.ActionColumn.ReadOnly = true;
-            this.ActionColumn.Width = 150;
+            this.ActionColumn.Width = 35;
             // 
             // Folder2Modified
             // 
             this.Folder2Modified.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Folder2Modified.DefaultCellStyle = dataGridViewCellStyle12;
             this.Folder2Modified.FillWeight = 236.1702F;
             this.Folder2Modified.HeaderText = "Folder 2";
             this.Folder2Modified.Name = "Folder2Modified";
             this.Folder2Modified.ReadOnly = true;
-            this.Folder2Modified.Width = 150;
+            this.Folder2Modified.Width = 110;
             // 
             // FolderSyncControl
             // 
